@@ -16,7 +16,7 @@ For the past 20+ years, my native languages have been Python and C++. I got star
 ///
 
 /// html | div[style='float: right;width: 25%; padding-left: 30pt;']
-![Image title](images/index.png)
+![Image title](images/anders.jpg)
 ///
 
 /// html | div[style='clear: both;']
