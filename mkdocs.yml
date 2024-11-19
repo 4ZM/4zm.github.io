@@ -23,6 +23,13 @@ markdown_extensions:
   - md_in_html
   - pymdownx.blocks.caption
   - pymdownx.blocks.html
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
 extra:
   social:
@@ -30,5 +37,8 @@ extra:
       link: https://github.com/4ZM
     - icon: fontawesome/solid/paper-plane
       link: mailto:anders@4zm.org
+  analytics:
+    provider: google
+    property: G-HLXBBN0SQ4
 
 copyright: Copyright &copy; 2024 Anders Sundman
