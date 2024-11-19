@@ -18,7 +18,6 @@ Your coding conventions, branching strategy, and review guidelines may seem like
 As a principal software architect and someone who cares deeply about how we develop software, I have mostly stopped writing down policies. Instead, I have started creating environments — jungles — where following a policy is the path of least resistance. By thinking about software development as a cultural ecology, you can unlock more flexible, efficient, and less bureaucratic ways of organizing software development.
 
 If you are a senior developer, architect, tech lead, or CTO, I invite you on an excursion. We’ll travel winding paths through philosophy, biology, and social sciences to discover new ways of thinking about software development.
-Developers trekking through a rainforest
 
 <center>![Trekking through rainforest](trekking.jpeg){ width=80% }</center>
 
@@ -30,22 +29,17 @@ The now famous quote from Rachel Carson’s book Silent Spring: *“In nature, n
 
 Software engineering is a particular and peculiar form of cultural ecology. A varied range of lifeforms — developers, scrum teams, companies, and open source projects — interact with an environment of programming languages, CI/CD systems, and office cubicles. The environment limits some behaviors but also presents opportunities for the life forms. But the influence is bi-directional; the activities of the inhabitants in the environment also change and create it. This reciprocal process extends to the interactions and actions of life forms vis-à-vis other life forms.
 
-Through direct collaboration, serendipitous symbiosis, or competition; in software development ecologies, nothing exists alone.
-
-<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
+### <p style="margin: 30pt">Through direct collaboration, serendipitous symbiosis, or competition; in software development ecologies, nothing exists alone.</p>
 
 So, how is this way of looking at software engineering actually helpful? What does it provide beyond a mere and fanciful description of our practices?
 
-Unlike any other life forms, known from any ecology, we have the ability to reason about these processes in a way that makes it possible for us to also intervene in them. We are not merely evolving by reacting to our environment. We have the ability to get involved with intent.
-
-> ### We can change our own culture and how we interact with each other by deliberately changing the environment.
+Unlike any other life forms, known from any ecology, we have the ability to reason about these processes in a way that makes it possible for us to also intervene in them. We are not merely evolving by reacting to our environment. We have the ability to get involved with intent. We can change our own culture and how we interact with each other by deliberately changing the environment.
 
 Let’s consider a practical example: Fixing a flaky unit test. This can have a profound ecological impact and drive incredible behavioral change.
 
 Removing the flaky character of tests will make the state of the trunk (main branch) more predictable. There will be fewer false positive and negative reports from CI that undermine trust in the reported status. As a result, developers will be more prone to frequent integrations and shorter-lived feature branches. They won’t need to worry about merging in a broken main branch. This, in turn, leads to fewer bugs introduced by complex merges and more code sharing and collaboration between different teams.
 
 A careful, deliberate intervention in the environment by an experienced steward of the ecosystem can have a profound positive impact and make the ecology thrive and flourish.
-Software architect in a rainforest
 
 <center>![Architect in rainforest](architect.jpeg){ width=80% }</center>
 
@@ -90,3 +84,9 @@ In contrast, a smaller repo that has only ever been built with one compiler will
 In closing, I hope that you will find it useful to think about software development through the lens of cultural ecology.
 
 I hope that you will stop writing policy documents and instead start shaping the environment to drive behaviors. Next time, you might consider enforcing automatic code formatting in pre-merge CI instead of writing a code style document. If you need to write something, focus on explaining why the environment is landscaped the way it is and let the life forms loose to explore it on their own.
+
+<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
+
+**EDIT:** This article caused a lot of discussion in my [post on Reddit](https://www.reddit.com/r/programming/comments/1gimzn8/software_development_is_a_cultural_ecology_work/). Check it out if you are interested in what other devs think about the topic.
+
+<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>

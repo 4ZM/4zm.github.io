@@ -21,7 +21,7 @@ Since Ctrl-C, Ctrl-V is the de facto standard programming paradigm, and you are 
 
 <center>![Cute cat](take-this.jpg)</center>
 
-Of course, we have the C++ Core Guidelines. These are all the defaults and best practices you should be using. But, be honest, you’re not going to read those, are you? These are the templates you have been looking for.
+Of course, we have the [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines). These are all the defaults and best practices you *should* be using. But, be honest, you’re not going to read those, are you? These are the templates you have been looking for.
 
 ## A Plain POD { data-toc-label="Plain POD" }
 
@@ -201,3 +201,5 @@ public:
 Now, before you get too worked up and start yelling at the screen. I know, there are exceptions to almost all of the recommendations in this post. But they are exceptions. What I have presented are the safe and sane defaults. Your starting point for modern C++.
 
 <center>![Hair of fire](hair-on-fire.jpeg)</center>
+
+<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
