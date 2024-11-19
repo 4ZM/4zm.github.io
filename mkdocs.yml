@@ -1,5 +1,5 @@
 site_name: The Ivory Tower
-site_description: an example blog set up following the tutorial
+site_description: Anders blog about software engineering and development philosophy
 site_url: https://4zm.github.io
 
 theme:
