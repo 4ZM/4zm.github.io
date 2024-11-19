@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 date: 2024-10-28
 slug: state-of-the-art-python-in-2024
 categories:
@@ -142,8 +142,8 @@ click.echo(click.style("✔", fg="green") + " Yaaaaz!")
 Sometimes you need a bit more spice in your CLI. Use yaspin to add a terminal spinner and tqdm to add progress bars. Well isn’t that just lovely?
 Conclusion
 
----
+<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
 
 It’s good to be a Python programmer in 2024. We have great libraries for all our basic needs like testing and CLI creation. By now, a consensus that type annotations are helpful has emerged, so you no longer need to argue with your coworkers about it. But more than anything, the tool uv is bringing a new level of convenience (and speed) to development workflows.
 
-I would like to extend a huge THANK YOU to Astral and all other Python devs that work on the projects I‘ve mentioned. It’s never been more fun to write Python code, and it’s because of the work you do. 😍
+I would like to extend a huge **THANK YOU** to Astral and all other Python devs that work on the projects I‘ve mentioned. It’s never been more fun to write Python code, and it’s because of the work you do. 😍
