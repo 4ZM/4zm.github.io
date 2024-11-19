@@ -1,4 +1,34 @@
-site_name: My Docs
+site_name: The Ivory Tower
+site_description: an example blog set up following the tutorial
 site_url: https://4zm.github.io
+
 theme:
   name: material
+  features:
+    - navigation.expand
+    - navigation.tabs
+  logo: images/floppy-white.png
+
+plugins:
+  - search
+  - blog:
+      blog_dir: .
+  - offline
+
+markdown_extensions:
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - pymdownx.blocks.html
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/4ZM
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:anders@4zm.org
+
+copyright: Copyright &copy; 2024 Anders Sundman
