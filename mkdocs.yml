@@ -42,10 +42,10 @@ markdown_extensions:
 
 extra:
   social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/4ZM
     - icon: fontawesome/solid/paper-plane
       link: mailto:anders@4zm.org
+    - icon: fontawesome/solid/rss
+      link: feed_rss_created.xml
   analytics:
     provider: google
     property: G-HLXBBN0SQ4
