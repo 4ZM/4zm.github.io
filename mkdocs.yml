@@ -17,6 +17,12 @@ plugins:
   - blog:
       blog_dir: .
   - offline
+  - rss:
+      match_path: blog/posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
 
 markdown_extensions:
   - pymdownx.emoji:
