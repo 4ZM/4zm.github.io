@@ -9,6 +9,9 @@ theme:
     - navigation.tabs
   logo: images/floppy-white.png
 
+extra_css:
+  - custom.css
+
 plugins:
   - search
   - blog:

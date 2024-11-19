@@ -5,23 +5,14 @@ hide:
   - toc
 ---
 
-# Welcome to the Ivory Tower Blog
+# Welcome to the **Ivory Tower** Blog
 
-/// html | div[style='float: left; width: 75%']
-I'm Anders Sundman, and the Ivory Tower blog is a collection of my musings on technology and software engineering. In this space, I share reflections on how we conjure things into existence using code, from a technical, social, and philosophical perspective.
+![Image title](images/anders.jpg){: .responsive-img-right }
 
-I've been writing code for 30+ years, and I'm starting to get the hang of it. Throughout my career, I've been working with systems programming. Currently, I'm building eye-tracking software as a principal architect and tech lead at Tobii. My experience is mostly from working in the embedded space with signal processing and microcontrollers. But I've also built distributed backend systems and desktop applications.
+I'm Anders Sundman, and this blog is a collection of my musings on programming, software engineering, and craftsmanship. I write about how we developers conjure things into existence from technical, social, and philosophical perspectives.
 
-For the past 20+ years, my native languages have been Python and C++. I got started with Turbo Pascal and then spent many years with Java and C#. Currently, I'm head over heels in love with Rust.
-///
+After writing code for 30+ years, I'm starting to get the hang of it. Currently, I'm building eye-tracking software as the principal architect and developer excellence lead at Tobii. My experience as a developer is mostly in systems programming and working in the embedded space with signal processing. However, I've also built distributed backend systems (before they were called microservices) and DDD-inspired desktop applications.
 
-/// html | div[style='float: right;width: 25%; padding-left: 30pt;']
-![Image title](images/anders.jpg)
-///
-
-/// html | div[style='clear: both;']
-///
-
-
+For the past 20+ years, my native languages have been Python and C++. Lately, I've been flirting with Rust, and I'm loving it!
 
 ---

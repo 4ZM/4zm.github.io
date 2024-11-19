@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 date: 2024-11-06
 slug: steal-this-class
 categories:
@@ -19,11 +19,13 @@ To make things worse, much of the advice on Stack Overflow and (LLVM output trai
 
 Since Ctrl-C, Ctrl-V is the de facto standard programming paradigm, and you are going to do it regardless, consider using these boilerplate classes. They are “copy-paste safe.” They have the right defaults, and they are not missing some essential piece that will get you into trouble later.
 
-![Cute cat](take-this.jpg)
+<center>![Cute cat](take-this.jpg)</center>
 
 Of course, we have the C++ Core Guidelines. These are all the defaults and best practices you should be using. But, be honest, you’re not going to read those, are you? These are the templates you have been looking for.
-A Plain POD
 
+## A Plain POD { data-toc-label="Plain POD" }
+
+```cpp
 struct Point {
   // A1 Use 'struct' for these, and only these, basic POD (Plain Old Data) types.
   //    This reduces clutter by providing public visibility by default.
@@ -41,9 +43,11 @@ struct Point {
   // A7 Order members by "type with largest alignment" first, to keep the
   //    struct small. Doubles first, then ints, then chars.
 };
+```
 
-Basic Data Types with Invariants
+## Basic Data Types with Invariants  { data-toc-label="Data with Invariants" }
 
+```cpp
 class Circle {
   // B1 Make anything with logic a class (not a struct)
 public:
@@ -94,9 +98,11 @@ private:
   // B18 Use trailig underscore to keep good parameter names in setter
   //     function signatures.
 };
+```
 
-Resource Owning RAII Types
+## Resource Owning RAII Types { data-toc-label="RAII Types" }
 
+```cpp
 class File {
 // C1 RAII types should be classes (not structs)
 
@@ -137,9 +143,11 @@ private:
   // C13 Initialize to nullptr in case there's an exception before
   //     initializer-list assignment.
 };
+```
 
-Polymorphic Types
+## Polymorphic Types
 
+```cpp
 class IPolygon {
 // D1 Interfaces should be classes (not structs)
 // D2 I-prefix makes "Polygon" name available for subclass
@@ -186,10 +194,10 @@ public:
   // NO: Triangle(const Triangle&) = delete;
   // D17 No need to remove value semantics here since it's done in base
 };
+```
+
+<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
 
 Now, before you get too worked up and start yelling at the screen. I know, there are exceptions to almost all of the recommendations in this post. But they are exceptions. What I have presented are the safe and sane defaults. Your starting point for modern C++.
-Programmer with hair on fire
 
-![Hair of fire](hair-on-fire.jpeg)
-
-If there is an interest in this article, I will write a follow-up where I discuss all the advice in greater detail. Clap or comment if you would like to see that happen.
+<center>![Hair of fire](hair-on-fire.jpeg)</center>

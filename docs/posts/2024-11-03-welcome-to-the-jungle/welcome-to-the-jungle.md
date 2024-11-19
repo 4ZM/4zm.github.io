@@ -2,6 +2,8 @@
 draft: false
 date: 2024-11-03
 slug: welcome-to-the-jungle
+hide:
+  - toc
 categories:
   - Philosophy
   - Leadership
@@ -18,8 +20,7 @@ As a principal software architect and someone who cares deeply about how we deve
 If you are a senior developer, architect, tech lead, or CTO, I invite you on an excursion. We’ll travel winding paths through philosophy, biology, and social sciences to discover new ways of thinking about software development.
 Developers trekking through a rainforest
 
-![Trekking through rainforest](trekking.jpeg)
-
+<center>![Trekking through rainforest](trekking.jpeg){ width=80% }</center>
 
 What is a software ecosystem? A global multitude of programs, libraries, and operating systems? A whirlpool of interactions between developers, teams, and organizations?
 
@@ -46,7 +47,7 @@ Removing the flaky character of tests will make the state of the trunk (main bra
 A careful, deliberate intervention in the environment by an experienced steward of the ecosystem can have a profound positive impact and make the ecology thrive and flourish.
 Software architect in a rainforest
 
-![Architect in rainforest](architect.jpeg)
+<center>![Architect in rainforest](architect.jpeg){ width=80% }</center>
 
 Another lesson that we ought to have learned from biological ecology is that interventions into an environment can have catastrophic consequences. In some cases, we have witnessed how an ignorant action has led to a full collapse of the ecosystem.
 
@@ -74,7 +75,7 @@ These two approaches represent quite different ecological environments for devel
 
 When Darwin visited the Galápagos Islands in 1835, he noticed how finches had evolved differently on different islands. The isolation of the islands caused a heterogeneity of life forms. This is also true for poly-repo ecologies. They tend to exhibit variations in coding style, build systems, branching strategy, etc. Being isolated, they also exhibit favorable traits like internal cohesion, less complex dependencies, and security by segmentation.
 
-![Paradise islands](islands.jpeg)
+<center>![Paradise islands](islands.jpeg){ width=80% }</center>
 
 A monorepo, on the other hand, is a vast rainforest. Life-forms abound and can always immediately interact with each other, especially in watering holes and other nodal points (e.g., the build system). A healthy monorepo is, however, always internally structured in components and parts — it’s not a giant ball of mud. In the jungle, some life forms inhabit the treetops and others the forest floor. In the monorepo, most developer teams spend their time in a niche, a fairly limited set of components and products.
 
