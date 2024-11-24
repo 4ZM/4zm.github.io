@@ -1,6 +1,9 @@
 ---
 draft: false
-date: 2024-11-06
+date:
+date:
+  created: 2024-11-06
+  updated: 2024-11-24
 slug: steal-this-class
 categories:
   - C++
@@ -15,7 +18,7 @@ Class design in C++ is hard. Really, really, hard. I love C++ but, sadly, all th
 
 This means you have to add a lot of “ornamentation” to a well-designed C++ class. This can seem bulky, so you might start second-guessing and questioning yourself, and it’s easy to forget a thing or two.
 
-To make things worse, much of the advice on Stack Overflow and (LLVM output trained on that advice) is outdated, incomplete, and just wrong.
+To make things worse, much of the advice on Stack Overflow and (LLM output trained on that advice) is outdated, incomplete, and just wrong.
 
 Since Ctrl-C, Ctrl-V is the de facto standard programming paradigm, and you are going to do it regardless, consider using these boilerplate classes. They are “copy-paste safe.” They have the right defaults, and they are not missing some essential piece that will get you into trouble later.
 
@@ -60,7 +63,7 @@ public:
   //    unintentional implicit conversion.
   // B5 Limit duplication in constructor bodies with delegating constructors
 
-  constexpr Circle(const Point & center, float radius) :
+  constexpr Circle(const Point& center, float radius) :
     center_(center), radius_(radius < 0.0f ? 0.0f : radius) {}
   // B6 Handle pre-condition violations and preserve class invariants
   //    by truncation or throwing. Throw unless constructor is constexpr.
@@ -69,12 +72,12 @@ public:
   //    Don't offer this constructor to avoid confusion with argument order
   //    at the call site, i.e. Circle{radius, x, y}
 
-  [[nodiscard]] constexpr const Point & getCenter() const noexcept { return center_; }
+  [[nodiscard]] constexpr const Point& getCenter() const noexcept { return center_; }
   // B8  Use both constexpr and const
   // B9  Use [[nodiscard]] where it's clearly a bug to not use a return value
   // B10 All logically non-mutating functions should be const
 
-  constexpr void setCenter(const Point & center) { center_ = center; }
+  constexpr void setCenter(const Point& center) { center_ = center; }
   // B11 Setters can often not be noexcept since they might copy and allocate
   //     In this case it would be fine, but not in general.
 
@@ -95,7 +98,7 @@ private:
 
   Point center_{};
   float radius_{};
-  // B18 Use trailig underscore to keep good parameter names in setter
+  // B18 Use trailing underscore to keep good parameter names in setter
   //     function signatures.
 };
 ```
@@ -111,36 +114,50 @@ public:
       : file_(std::fopen(fileName.c_str(), "r")) {
     if (!file_) throw std::runtime_error("Failed to open file");
   }
-  // C2 [[nodiscard]] on constructors prevents forgetting to name the RAII.
+  // C2 [[nodiscard]] on constructors prevents forgetting to name the RAII object.
   //    Especially important if the 'resource' is a side-effect, like a lock.
   // C3 Use exceptions to signal errors
   // C4 Make single-arg constructor 'explicit' to prevent implicit conversion.
 
-  ~File() noexcept {
-    if (file_) std::fclose(file_);
-  }
+  ~File() noexcept { reset(); }
   // C5 All destructors should be noexcept
   // C6 Not 'virtual' since it is not meant as a base class
+  // C7 Use reset() function to avoid code duplication in move assignment
 
   File(File&& other) noexcept : file_(std::exchange(other.file_, nullptr)) {}
-  // C7 Use std::exchange to leave the moved-from object in a clean state
+  // C8 Use std::exchange to leave the moved-from object in a clean state
 
-  File& operator=(File other) noexcept {
-    std::swap(file_, other.file_);
+  File& operator=(File&& other) & noexcept {
+    if (this != &other) {
+      reset();
+      std::swap(file_, other.file_);
+    }
     return *this;
   }
-  // C8  Take arg by value. Parameter will be created by move ctor, not copy.
-  // C9  Use std::swap to avoid leaking the assigned to resource
-  // C10 Only check for self-assignment if members are not self assignable
-  // C11 Make move operations noexcept to work well with std::vector, etc.
+  // C9  Can't use copy-and-swap idiom for move only types
+  // C10 reset() function to avoid code duplication here and in destructor
+  // C11 Release current resource before acquiring new one
+  // C12 Use std::swap leaves moved-from object in a clean state
+  // C13 Make move operations noexcept to work well with std::vector, etc.
+  // C14 Ref qualifier '&' prevents move assignment to rvalue
+  // C15 Move assignment adds considerable complexity. Consider deleting it instead.
 
   File(const File&) = delete;
   File& operator=(const File&) = delete;
-  // C12 RAII types should typically not be copyable. Be explicit (rule of 0/5).
+  // C16 RAII types should typically not be copyable. Be explicit (rule of 0/5).
 
 private:
+  void reset() noexcept {
+    if (file_) {
+      std::fclose(file_);
+      file_ = nullptr;
+    }
+  }
+  // C17 Avoid code duplication between dtor and move assignment operator.
+  // C18 Set file_ to nullptr to avoid double closing.
+
   FILE* file_ = nullptr;
-  // C13 Initialize to nullptr in case there's an exception before
+  // C19 Initialize to nullptr in case there's an exception before
   //     initializer-list assignment.
 };
 ```
@@ -148,51 +165,50 @@ private:
 ## Polymorphic Types
 
 ```cpp
-class IPolygon {
+class Polygon {
 // D1 Interfaces should be classes (not structs)
-// D2 I-prefix makes "Polygon" name available for subclass
 
 public:
-  virtual ~IPolygon() noexcept = default;
-  // D3 Add a virtual destructor to ensure derived class destructor is called
-  // D4 All destructors should be noexcept
+  virtual ~Polygon() noexcept = default;
+  // D2 Add a virtual destructor to ensure derived class destructor is called
+  // D3 All destructors should be noexcept
 
-  [[nodiscard]] virtual double sum_of_angles() const noexcept = 0;
-  // D5 Pure virtual interface API functions
-  // D6 noexcept enforces noexcept in subclasses (use if desirable)
-  // D7 [[nodiscard]] and const for getters
+  [[nodiscard]] virtual double sumOfAngles() const noexcept = 0;
+  // D4 Pure virtual interface API functions
+  // D5 noexcept enforces noexcept in subclasses (use if desirable)
+  // D6 [[nodiscard]] and const for getters
 
 protected:
-  IPolygon() = default;
-  // D8 protected constructor to prevent instantiation of interface class
-  // D9 Not private to make default constructor available in subclass
+  Polygon() = default;
+  // D7 protected constructor to prevent instantiation of interface class
+  // D8 Not private to make default constructor available in subclass
 
 private:
-  IPolygon(const IPolygon&) = delete;
-  IPolygon& operator=(const IPolygon&) = delete;
-  IPolygon(IPolygon&&) = delete;
-  IPolygon& operator=(IPolygon&&) = delete;
-  // D10 remove value semantics for polymorphic class hierarchies
+  Polygon(const Polygon&) = delete;
+  Polygon& operator=(const Polygon&) = delete;
+  Polygon(Polygon&&) = delete;
+  Polygon& operator=(Polygon&&) = delete;
+  // D9 remove value semantics for polymorphic class hierarchies
 };
 
-class Triangle final : public IPolygon {
-  // D11 Inheritance should be public
-  // D12 final prevents unintended extension of hierarchy
+class Triangle final : public Polygon {
+// D10 Inheritance should be public
+// D11 final prevents unintended extension of hierarchy
 
 public:
   Triangle() = default;
-  // D13 Default constructor here finds default constructor in base
+  // D12 Default constructor here finds default constructor in base
 
   virtual ~Triangle() noexcept = default;
-  // D14 virtual even if it's not neccessary since class is final
-  //     If final is removed, this prevents a hard to find bug.
+  // D13 virtual even if it's not necessary since class is final
+  //     If final is removed, this could prevent a hard to find bug.
 
-  [[nodiscard]] double sum_of_angles() const noexcept override { return 180.0; }
-  // D15 Use override. virtual is implied and not required
-  // D16 noexcept required by base class
+  [[nodiscard]] double sumOfAngles() const noexcept override { return 180.0; }
+  // D14 Use override. virtual is implied and not required
+  // D15 noexcept required by base class
 
   // NO: Triangle(const Triangle&) = delete;
-  // D17 No need to remove value semantics here since it's done in base
+  // D16 No need to remove value semantics here since it's done in base
 };
 ```
 
