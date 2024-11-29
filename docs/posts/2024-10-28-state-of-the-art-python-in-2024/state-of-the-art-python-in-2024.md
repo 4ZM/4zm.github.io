@@ -149,4 +149,4 @@ I would like to extend a huge **THANK YOU** to Astral and all other Python devs 
 
 <pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
 
-**EDIT:** This topic caused quite a lot of discussion in my [post on Reddit](https://www.reddit.com/r/Python/comments/1ghiln0/state_of_the_art_python_in_2024). It has 600 comments! Check it out if you want to know what many other Python devs think about the subject.
+**EDIT:** This topic caused quite a lot of discussion in my [post on Reddit](https://www.reddit.com/r/Python/comments/1ghiln0/state_of_the_art_python_in_2024). It has 600 up-votes! Check it out if you want to know what many other Python devs think about the subject.
