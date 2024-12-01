@@ -1,7 +1,6 @@
 ---
 draft: false
 date:
-date:
   created: 2024-11-06
   updated: 2024-11-24
 slug: steal-this-class
