@@ -56,7 +56,7 @@ It focuses on the developer experience by reducing synchronization overhead (wai
 
 1. Practice shared code ownership, but don't be naive about it. Think: stewards, not owners.
 2. Require *one* review, but not necessarily by the code steward (owner).
-3. Encourage stewards to regularly review changes are committed to components they care for.
+3. Encourage stewards to regularly review changes committed to components they care for.
 4. Review what matters. Compile with "warnings as errors". Enforce linting and strict auto formatting of code.
 5. Lean heavily on unit tests. Block PR merges until they pass. Scale CI appropriately so they run in less than 15 minutes.
 6. Run additional tests on every commit after merging. Scale CI appropriately so they run in less than 30 minutes.
