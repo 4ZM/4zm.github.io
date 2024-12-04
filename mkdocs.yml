@@ -1,6 +1,6 @@
 site_name: The Ivory Tower
-site_description: Anders blog about software engineering and development philosophy
-site_url: https://4zm.github.io
+site_description: The Ivory Tower is a blog about software engineering and development philosophy by Anders Sundman.
+site_url: https://4zm.org
 
 theme:
   name: material
@@ -18,7 +18,7 @@ plugins:
       blog_dir: .
   - offline
   - rss:
-      match_path: blog/posts/.*
+      match_path: posts/.*
       date_from_meta:
         as_creation: date
       categories:

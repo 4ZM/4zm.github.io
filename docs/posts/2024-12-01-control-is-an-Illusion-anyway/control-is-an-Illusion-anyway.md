@@ -2,7 +2,7 @@
 draft: false
 date:
   created: 2024-12-02
-slug: control-is-an-Illusion-anyway
+slug: control-is-an-illusion-anyway
 hide:
   - toc
 categories:
