@@ -6,9 +6,6 @@ slug: elf-shenanigans
 categories:
   - Shenanigans
   - Toolchains
-  - C
-  - Assembly
-  - Linker
 ---
 
 # ELF Shenanigans - Holiday Special

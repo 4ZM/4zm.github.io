@@ -5,9 +5,6 @@ date:
 slug: a-simple-elf
 categories:
   - Toolchains
-  - C
-  - Assembly
-  - Linkers
 ---
 
 # A Simple ELF
