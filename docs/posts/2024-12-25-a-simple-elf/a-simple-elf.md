@@ -12,11 +12,11 @@ categories:
 
 # A Simple ELF
 
-Let's write a simple program for Linux, how hard can it be? Well, simple is the opposite of complex, not of hard, and it is surprisingly hard to create something simple. What is left when we get rid of the complexity from the standard library, all the modern security features, debugging information and error handling mechanisms?
+Let's write a simple program for Linux. How hard can it be? Well, simple is the opposite of complex, not of hard, and it is surprisingly hard to create something simple. What is left when we get rid of the complexity from the standard library, all the modern security features, debugging information, and error handling mechanisms?
 
 <!-- more -->
 
-## Hello World Preliminaries
+<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
 
 Let's start with something complex:
 
@@ -28,7 +28,7 @@ int main() {
 }
 ```
 
-Wait what?! It doesn't look very complex does it... Hmm, let's compile it and take a look:
+Wait, what?! It doesn't look very complex, does it... Hmm, let's compile it and take a look:
 
 ```
 $ gcc -o hello hello.c
@@ -36,10 +36,10 @@ $ ./hello
 Hello Simplicity!
 ```
 
-Still looks pretty simple, right? Wrong! While this much is familiar territory, it might be *easy* to comprehend, but the program is far from *simple*. Let's take a look behind the curtain using our trusty tool `objdump`. Here is the symbol table:
+Still looks pretty simple, right? Wrong! While this might be familiar territory and *easy* to comprehend, the program is far from *simple*. Let's take a look behind the curtain.
 
 ```
-$ objdump -t build/hello
+$ objdump -t hello
 
 hello:     file format elf64-x86-64
 
@@ -81,21 +81,18 @@ SYMBOL TABLE:
 0000000000001000 g     F .init	0000000000000000              .hidden _init
 ```
 
-That's a lot of symbols! Actually, as far as symbol tables go, this one is quite modest. Any non-trivial program will have many more symbols, but still, what ever are they all for? We're just printing a string!
+That's a lot of symbols! Actually, as far as symbol tables go, this one is quite modest. Any non-trivial program will have many more symbols, but still, what are they all for? We're just printing a string!
 
-We recognize our `main` function in the `.text` segment at address `0x1149`.
+We recognize our `main` function in the `.text` segment at address `0x1149`. But where is the `printf` function?
+
+It turns out that for simple cases, where there is no formatting work required by `printf`, GCC optimizes the code and replaces it with the simpler `puts@GLIBC_2.2.5` from libc. The address is all zeros since the symbol is undefined (`*UND*`). It will be resolved when the program is loaded together with the dynamic libc.so library as we run it.
 
 ```
 0000000000001149 g     F .text	000000000000001e              main
-```
-
-But where is `printf`? It turns out that for simple cases, where there is no formaning work required by printf, GCC optimizes the code and replaces it with the simpler `puts@GLIBC_2.2.5` from libc. The address is all zero since the symbol is undefined `*UND*`. It will be resolved when the program is loaded together with the dynamic libc.so library as we run it.
-
-```
 0000000000000000       F *UND*	0000000000000000              puts@GLIBC_2.2.5
 ```
 
-Let's keep digging. What sections are there in the program? The only data we have is the hardcoded string and it's length. Surely we only need a `.text` section? Let's see what we got:
+Let's keep digging. What sections are there in the program? The only data we have is the hardcoded string and its length. Surely we only need a `.text` section? Let's see what we got:
 
 ```
 $ objdump -h hello
@@ -173,29 +170,29 @@ HAS_SYMS, DYNAMIC, D_PAGED
 start address 0x0000000000001060
 ```
 
-The "start address" (also known as the entry point), is `start_`, not `main`. This mystery function at `0x1060` must call our `main` some how, but where does it come from!?
+The "start address" (also known as the entry point), is `_start`, not `main`. This mystery function at `0x1060` must call our `main` somehow, but where does it come from!?
 
 ```
 0000000000001060 g     F .text	0000000000000026              _start
 ```
 
-Let's start simplifying the program. As we peal of complexity, we will get a chance to focus on understanding few things at the time.
+Let's start simplifying the program. As we peel off complexity, we will get a chance to focus on understanding a few things at a time.
 
 ## Life without libc
 
-A major source of complexity in our program comes from the standard libraries. They are used for printing the string and for initializing the program. Let's get rid of them.
+A major source of complexity in our program comes from the standard libraries. They are used for printing the string and initializing the program. Let's get rid of them.
 
 Easy enough, just compile with: `-nostdlib`.
 
 Unfortunately, that means we no longer have access to the `printf` (or the `puts`) function. That's unfortunate since we still want to print "Hello Simplicity!".
 
-It also means we will loose the `_start` function. It is provided by the C runtime library (CRT) to perform some initialization (like clearing the `.bss` segment) and call our `main` function. Since we still need our `main` to be executed, we will have to do something about that.
+It also means we will lose the `_start` function. It is provided by the C runtime library (CRT) to perform some initialization (like clearing the `.bss` segment) and call our `main` function. Since we still need our `main` to be executed, we will have to do something about that.
 
-Fortunately we can provide our own entry point with `-Wl,-e,<function_name>`. We *could* specify `main` as our entrypoint directly, but that would mean treating it as `void main()` instead of `int main()`. The entry point doesn't return anything. I feel that changing the signature of `main` is one bridge to far, let's instead create our own `void startup()` function that calls `main`.
+Fortunately, we can provide our own entry point with `-Wl,-e,<function_name>`. We *could* specify `main` as our entry point directly, but that would mean treating it as `void main()` instead of `int main()`. The entry point doesn't return anything. I feel that changing the signature of `main` is one bridge too far; let's instead create our own `void startup()` function that calls `main`.
 
-For writing to `stdout`, we resort to the `syscall` assembly instruction. This instruction is how we ask the Linux kernel to do things for us. In this particular case we would like to execute the `write` syscall to write a string to `stdout` (file descriptor = 1). Later on we also want to call `exit` to terminate the process.
+For writing to `stdout`, we resort to the `syscall` assembly instruction. This instruction is how we ask the Linux kernel to do things for us. In this particular case, we would like to execute the `write` syscall to write a string to `stdout` (file descriptor = 1). Later on, we also want to call `exit` to terminate the process.
 
- When calling the `syscall` instruction, we pass the syscall number in the `rax` register and the arguments in registers `rdi`, `rsi`, `rdx`. The `write` syscall has number `0x01` and the `exit` syscall has number `0x3c`.
+When calling the `syscall` instruction, we pass the syscall number in the `rax` register and the arguments in registers `rdi`, `rsi`, and `rdx`. The `write` syscall has number `0x01` and the `exit` syscall has number `0x3c`.
 
 These are their C signatures:
 
@@ -241,7 +238,7 @@ void startup() {
 }
 ```
 
-In case you are wondering, the `volatile` keyword is required to prevent GCC from optimizing away the variables.. And `unsigned long` is used instead of `int` to match the size of the `r__` 64-bit registers.
+In case you are wondering, the `volatile` keyword is required to prevent GCC from optimizing away the variables. And `unsigned long` is used instead of `int` to match the size of the `r__` 64-bit registers.
 
 We build it like so:
 
@@ -256,7 +253,7 @@ It might not be *easier* to understand unless you are accustomed to assembly lan
 Still not convinced that we have actually made the program simpler? Let's take a look at the symbols and sections:
 
 ```
-objdump -h -t hello-nostd
+$ objdump -h -t hello-nostd
 
 Sections:
 Idx Name          Size      VMA               LMA               File off  Algn
@@ -295,7 +292,7 @@ SYMBOL TABLE:
 0000000000004000 g       .dynamic	0000000000000000 _end
 ```
 
-There's still a lot going on here, but at least it now fits on one screen. As expected, `objdump -f ./hi` gives us a new start address: `0x1050`. It's our `startup` function!
+There's still a lot going on here, but at least it now fits on one screen. As expected, `objdump -f` gives us a new start address: `0x1050`. It's our `startup` function!
 
 Let's continue simplifying!
 
@@ -305,7 +302,7 @@ For the last 20 years, your programs have been loaded into memory at random addr
 
 By default, programs on modern systems are built as Position Independent Executables (PIE). Addresses are resolved when the program is loaded into memory. It's great for security, but it adds complexity. Let's get rid of it with: `-no-pie`.
 
-To further unclutter our assembly code, we turn off some more safety features `-fcf-protection=none` and `-fno-stack-protector`. We also get rid of some meta data generation with `-Wl,--build-id=none` and some debugger friendly stack unwinding info with `-fno-unwind-tables` and `-fno-asynchronous-unwind-tables`.
+To further unclutter our assembly code, we turn off some more safety features with `-fcf-protection=none` and `-fno-stack-protector`. We also get rid of some metadata generation with `-Wl,--build-id=none` and some debugger-friendly stack unwinding info with `-fno-unwind-tables` and `-fno-asynchronous-unwind-tables`.
 
 ```
 gcc -no-pie \
@@ -341,7 +338,7 @@ SYMBOL TABLE:
 0000000000402000 g       .text	0000000000000000 _end
 ```
 
-Did you notice how the symbol addresses changed with `-no-pie`? Before they were relative, waiting for some offset to be added at load time. Now they are absolute and `main` will really be at `0x00401000`.
+Did you notice how the symbol addresses changed with `-no-pie`? Before, they were relative, waiting for some offset to be added at load time. Now, they are absolute, and `main` will really be at `0x00401000`.
 
 ```
 $ gdb hi
@@ -361,61 +358,64 @@ Disassembly of section .text:
 0000000000401000 <main>:
   401000:	55                   	push   rbp
   401001:	48 89 e5             	mov    rbp,rsp
-  401004:	48 b8 48 65 6c 6c 6f 	movabs rax,0x6f57206f6c6c6548
-  40100b:	20 57 6f
-  40100e:	48 89 45 f2          	mov    QWORD PTR [rbp-0xe],rax
-  401012:	c7 45 fa 72 6c 64 21 	mov    DWORD PTR [rbp-0x6],0x21646c72
-  401019:	66 c7 45 fe 0a 00    	mov    WORD PTR [rbp-0x2],0xa
-  40101f:	48 c7 45 e8 0d 00 00 	mov    QWORD PTR [rbp-0x18],0xd
-  401026:	00
-  401027:	4c 8b 45 e8          	mov    r8,QWORD PTR [rbp-0x18]
-  40102b:	48 8d 4d f2          	lea    rcx,[rbp-0xe]
-  40102f:	48 c7 c0 01 00 00 00 	mov    rax,0x1
-  401036:	48 c7 c7 01 00 00 00 	mov    rdi,0x1
-  40103d:	48 89 ce             	mov    rsi,rcx
-  401040:	4c 89 c2             	mov    rdx,r8
-  401043:	0f 05                	syscall
-  401045:	b8 00 00 00 00       	mov    eax,0x0
-  40104a:	5d                   	pop    rbp
-  40104b:	c3                   	ret
+  401004:	48 b8 48 65 6c 6c 6f 	movabs rax,0x6953206f6c6c6548
+  40100b:	20 53 69
+  40100e:	48 ba 6d 70 6c 69 63 	movabs rdx,0x79746963696c706d
+  401015:	69 74 79
+  401018:	48 89 45 e0          	mov    QWORD PTR [rbp-0x20],rax
+  40101c:	48 89 55 e8          	mov    QWORD PTR [rbp-0x18],rdx
+  401020:	66 c7 45 f0 21 0a    	mov    WORD PTR [rbp-0x10],0xa21
+  401026:	c6 45 f2 00          	mov    BYTE PTR [rbp-0xe],0x0
+  40102a:	48 c7 45 d8 12 00 00 	mov    QWORD PTR [rbp-0x28],0x12
+  401031:	00
+  401032:	4c 8b 45 d8          	mov    r8,QWORD PTR [rbp-0x28]
+  401036:	48 8d 4d e0          	lea    rcx,[rbp-0x20]
+  40103a:	48 c7 c0 01 00 00 00 	mov    rax,0x1
+  401041:	48 c7 c7 01 00 00 00 	mov    rdi,0x1
+  401048:	48 89 ce             	mov    rsi,rcx
+  40104b:	4c 89 c2             	mov    rdx,r8
+  40104e:	0f 05                	syscall
+  401050:	b8 00 00 00 00       	mov    eax,0x0
+  401055:	5d                   	pop    rbp
+  401056:	c3                   	ret
 
-000000000040104c <startup>:
-  40104c:	55                   	push   rbp
-  40104d:	48 89 e5             	mov    rbp,rsp
-  401050:	48 83 ec 10          	sub    rsp,0x10
-  401054:	b8 00 00 00 00       	mov    eax,0x0
-  401059:	e8 a2 ff ff ff       	call   401000 <main>
-  40105e:	48 98                	cdqe
-  401060:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
-  401064:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
-  401068:	48 c7 c0 3c 00 00 00 	mov    rax,0x3c
-  40106f:	48 89 d7             	mov    rdi,rdx
-  401072:	0f 05                	syscall
-  401074:	90                   	nop
-  401075:	c9                   	leave
-  401076:	c3                   	ret
+0000000000401057 <startup>:
+  401057:	55                   	push   rbp
+  401058:	48 89 e5             	mov    rbp,rsp
+  40105b:	48 83 ec 10          	sub    rsp,0x10
+  40105f:	b8 00 00 00 00       	mov    eax,0x0
+  401064:	e8 97 ff ff ff       	call   401000 <main>
+  401069:	48 98                	cdqe
+  40106b:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+  40106f:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+  401073:	48 c7 c0 3c 00 00 00 	mov    rax,0x3c
+  40107a:	48 89 d7             	mov    rdi,rdx
+  40107d:	0f 05                	syscall
+  40107f:	90                   	nop
+  401080:	c9                   	leave
+  401081:	c3                   	ret
 ```
 
-You can see the `startup` function calling `main`, you can see the two syscalls and the "Hello Simplicity!" string hardcoded as large number of ascii values (being loaded onto the stack, relative to the stack base pointer rbp).
+You can see the `startup` function calling `main`, the two syscalls, and the "Hello Simplicity!" string hardcoded as a large number of ASCII values (being loaded onto the stack, relative to the stack base pointer `rbp`).
 
 There's not a lot of complexity left, at least not at this level. Our ELF is actually quite simple! But wait, there is more!
 
 ## Linker Scripts
 
-Where does the strange symbols (like `__bss_start`) come from? And who decides that our `startup` function should be loaded into memory at `0x0040104c`? What if we want our code to live in the cool `0xc0d30000` address range?
+Where do the strange symbols (like `__bss_start`) come from? And who decides that our `startup` function should be loaded into memory at `0x0040104c`? What if we want our code to live in the cool `0xc0d30000` address range?
 
-These things are specified in the linker script. Until now, we have been using the default one, you can see it with `ld -verbose`. It's very complex. Let's get rid of it.
+These things are specified in the linker script. Until now, we have been using the default one, which you can see with `ld -verbose`. It's very complex. Let's get rid of it.
 
 Our simple hello world application doesn't use any global variables. If it had, they would fall into three categories:
 
-* `.rodata` : Constants with values provided at compile time, like our hardcoded string.
-* `.data` : Non-cost variables with values provided at compile time.
-* `.bss` : Uninitialized global variables.
+* `.rodata`: Constants with values provided at compile time, like our hardcoded string.
+* `.data`: Non-const variables with values provided at compile time.
+* `.bss`: Uninitialized global variables.
 
-Let's complicate our program a tiny bit by introducing a symbol for each category. This will provide for a more interesting linker script example. Here is the new program `hello-data.c`:
+Let's complicate our program a tiny bit by introducing a symbol for each category. This will provide a more interesting linker script example. Here is the new program `hello-data.c`:
 
 ```
-const char message[] = "Hello Simplicity!\n";        // .rodata
+const char message[] = "Hello Simplicity!\n";   // .rodata
 unsigned long length = sizeof(message) - 1;     // .data
 unsigned long status;                           // .bss
 
@@ -491,9 +491,9 @@ SECTIONS
 ENTRY(startup)
 ```
 
-We use the same build options as before but add `-T link.ld` to start using our linker script.
+We use the same build options as before but add `-T hello.ld` to start using our linker script.
 
-This is the simple program in it's final form:
+This is the simple program in its final form:
 
 ```
 $ objdump -t -h hello-data
@@ -519,12 +519,11 @@ SYMBOL TABLE:
 00000000feed0008 g     O 📁 .bss	0000000000000008 status
 ```
 
-Isn't that absolutely adorable!
+Isn't that absolutely adorable?!
 
 I've put some sample code over at [github.com/4ZM/elf-shenanigans](https://github.com/4ZM/elf-shenanigans) to reproduce the examples in this article.
 
-If you want to learn more about linker scripts (and why wouldn't you?!) this is an outstanding technical documentation:
-https://users.informatik.haw-hamburg.de/~krabat/FH-Labor/gnupro/5_GNUPro_Utilities/c_Using_LD/ldLinker_scripts.html
+If you want to learn more about linker scripts (and why wouldn't you?!) this is an outstanding technical documentation: "[c_Using_LD](https://users.informatik.haw-hamburg.de/~krabat/FH-Labor/gnupro/5_GNUPro_Utilities/c_Using_LD/ldLinker_scripts.html)".
 
 If you want to explore more ridiculous things to do with section names, check out my other article: "[ELF Shenanigans](../2024-12-25-elf-shenanigans/elf-shenanigans.md)".
 
