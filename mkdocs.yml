@@ -45,7 +45,7 @@ extra:
     - icon: fontawesome/solid/paper-plane
       link: mailto:anders@4zm.org
     - icon: fontawesome/solid/rss
-      link: feed_rss_created.xml
+      link: /feed_rss_created.xml
   analytics:
     provider: google
     property: G-HLXBBN0SQ4
