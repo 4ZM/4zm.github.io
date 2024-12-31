@@ -1,7 +1,5 @@
 ---
-draft: false
-date:
-  created: 2024-12-25
+date: 2024-12-25
 slug: a-simple-elf
 categories:
   - Toolchains

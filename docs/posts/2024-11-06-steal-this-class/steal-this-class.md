@@ -1,8 +1,5 @@
 ---
-draft: false
-date:
-  created: 2024-11-06
-  updated: 2024-11-24
+date: 2024-11-06
 slug: steal-this-class
 categories:
   - C++

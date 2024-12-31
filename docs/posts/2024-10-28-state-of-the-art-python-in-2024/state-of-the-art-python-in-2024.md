@@ -1,5 +1,4 @@
 ---
-draft: false
 date: 2024-10-28
 slug: state-of-the-art-python-in-2024
 categories:

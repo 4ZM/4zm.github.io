@@ -1,7 +1,5 @@
 ---
-draft: false
-date:
-  created: 2024-12-18
+date: 2024-12-18
 slug: git-beyond-the-basics
 categories:
   - Git

@@ -1,5 +1,4 @@
 ---
-draft: false
 date: 2024-11-03
 slug: welcome-to-the-jungle
 hide:
