@@ -8,6 +8,7 @@ hide:
 categories:
   - Code Review
   - Best Practices
+  - git
 ---
 
 # Control is an Illusion Anyway...
