@@ -523,3 +523,22 @@ If you want to learn more about linker scripts (and why wouldn't you?!) this is 
 If you want to explore more ridiculous things to do with section names, check out my other article: "[ELF Shenanigans](../2024-12-25-elf-shenanigans/elf-shenanigans.md)".
 
 <pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
+
+*Update 2024-12-28:* This article made it to the top of [Hacker News](https://news.ycombinator.com/item?id=42516697)! There is a lot of interesting comments and links to similar content in the comments.
+
+*Update 2025-01-12:* There are a few issues with the inline assembly in my examples. Here is a better way to write it:
+
+```
+// write(1, message, length)
+asm volatile("syscall"        // Make the syscall
+             :                // No output operands
+             : "a"(1),        // rax (s#)
+               "D"(1),        // rdi (fd)
+               "S"(message),  // rsi
+               "d"(length)    // rdi
+             : "rcx", "r11",  // Clobbered registers
+               "cc", "memory" // Clobbered flags and memory
+    );
+```
+
+This will make sure the right values are in the right registers, some times without actually having to do anything. It also lists the `r11` as clobbered. But, there is also another issue in the examples. It's related to stack alignment. If you try compiling with `-O2` you will likely get a segfault since the stack is not 16 byte aligned. Fixing this would sidetrack and obscure the narrative of the article. Just be warned, this is not how you write production code, this is blogware.
