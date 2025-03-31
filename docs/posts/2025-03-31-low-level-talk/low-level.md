@@ -8,9 +8,7 @@ categories:
 
 # Low, Lower, Lowest Level Programming
 
-How low can you go? When it comes to embedded programming, the "full stack" starts at the PCB.
-
-In a recent talk at our local C++ meetup in Stockholm, I explored this in depth. Let's find out what's at the end rainbow by diving into topics like memory management, interrupt vector tables and electronics!
+How low can you go? When it comes to embedded programming, the "full stack" starts at the PCB. In a recent talk at our local C++ meetup in Stockholm, I explored this in depth. Let's find out what's at the end of the rainbow by diving into topics like memory management, interrupt vector tables and electronics!
 
 <!-- more -->
 
