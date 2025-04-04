@@ -1,6 +1,8 @@
 ---
 date: 2025-04-05
 slug: bitter-prediction
+hide:
+  - toc
 categories:
   - AI
   - Philosophy
@@ -23,14 +25,11 @@ I recognized the feeling from a moment in my youth. Back then, I loved playing t
 
 <center>![xcom](xcom.png){ width=60% }</center>
 
-
-Sure enough, my plan worked like a charm. I awarded myself a generous donation, and for a few hours, I was thrilled. I could buy all the cool stuff I couldn’t afford before and I had no problem fending off the pesky alien invasion. Aliens were no match for my hex editor.
+Sure enough, my plan worked. I awarded myself a generous donation, and for a few hours, I was thrilled. I could buy all the cool stuff I couldn’t afford before and I had no problem fending off the pesky alien invasion. Aliens were no match for my hex editor.
 
 The next day, I stopped playing the game. It wasn’t fun anymore. It left me unsatisfied. Sure, I would win every time, but I didn’t enjoy it. Not only that, even playing without cheating lost its shine. Why bother playing when I knew there was an easier way to win?
 
-This is the exact same feeling I’m left with after a few days of using Claude Code. I don’t enjoy using the tool as much as I enjoy writing code, but if it gets me to the goal faster, no sane employer would allow me to do it any other way.
-
-Will programming eventually be relegated to a hobby? Something that you can do in your spare time to amuse yourself, like a crossword puzzle?
+This is the exact same feeling I’m left with after a few days of using Claude Code. I don’t enjoy using the tool as much as I enjoy writing code, but if it gets me to the goal faster, no sane employer would allow me to do it any other way. Will programming eventually be relegated to a hobby? Something that you can do in your spare time to amuse yourself, like a crossword puzzle?
 
 But even as a hobby, it would leave me unsatisfied, knowing deep down that an AI could do it better. To be clear, I’m not saying we’re there yet. Our AI programming tools are not yet good enough, but I see no reason why they wouldn’t be within a few years—or even months. Let’s just say it’s a bitter prediction on my part.
 
@@ -50,4 +49,4 @@ Don't even get me started on the green house gas emissions of data centers...
 
 At the end of the day, I believe this type of agentic AI development is inevitable, regardless of what I happen to think about it. It makes economic sense, and capitalism is not sentimental. Nor does it care about how much fun we have as long as we produce and consume efficiently.
 
-Perhaps I’m getting old? Perhaps I'm a luddite? I definitely hope that I’m wrong... But I predict software development will be a lot less fun five years from now, and that is a very bitter prediction in deed.
+Perhaps I’m getting old? Perhaps I'm a luddite? I definitely hope that I’m wrong... But I predict software development will be a lot less fun in the years to come, and that is a very bitter prediction in deed.
