@@ -50,3 +50,7 @@ Don't even get me started on the green house gas emissions of data centers...
 At the end of the day, I believe this type of agentic AI development is inevitable, regardless of what I happen to think about it. It makes economic sense, and capitalism is not sentimental. Nor does it care about how much fun we have as long as we produce and consume efficiently.
 
 Perhaps I’m getting old? Perhaps I'm a luddite? I definitely hope that I’m wrong... But I predict software development will be a lot less fun in the years to come, and that is a very bitter prediction in deed.
+
+<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
+
+*Update 2025-05-05:* This article really got some discussion going at [Hacker News](https://news.ycombinator.com/item?id=43662686) without me even realizing until now! There is a lot of interesting comments and perspectives offered there.
