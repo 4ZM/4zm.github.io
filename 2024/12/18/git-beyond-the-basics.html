@@ -1,0 +1,1187 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="The Ivory Tower is a blog about software engineering and development philosophy by Anders Sundman.">
+      
+      
+      
+        <link rel="canonical" href="https://4zm.org/2024/12/18/git-beyond-the-basics.html">
+      
+      
+        <link rel="prev" href="../02/control-is-an-illusion-anyway.html">
+      
+      
+        <link rel="next" href="../25/elf-shenanigans.html">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Git - Beyond the Basics - The Ivory Tower</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HLXBBN0SQ4"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HLXBBN0SQ4",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HLXBBN0SQ4",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git-beyond-the-basics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="The Ivory Tower" class="md-header__button md-logo" aria-label="The Ivory Tower" data-md-component="logo">
+      
+  <img src="../../../images/floppy-white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Ivory Tower
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Git - Beyond the Basics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../archive/2025.html" class="md-tabs__link">
+          
+  
+  
+  Archive
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../category/ai.html" class="md-tabs__link">
+          
+  
+  
+  Categories
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="The Ivory Tower" class="md-nav__button md-logo" aria-label="The Ivory Tower" data-md-component="logo">
+      
+  <img src="../../../images/floppy-white.png" alt="logo">
+
+    </a>
+    The Ivory Tower
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../archive/2025.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../archive/2024.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Categories
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/ai.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/best-practices.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Best Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/beyond-the-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Beyond the Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/c.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    C++
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/code-review.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code Review
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/embedded.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Embedded
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/git.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/leadership.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Leadership
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/philosophy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Philosophy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/python.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/shenanigans.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shenanigans
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/toolchains.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Toolchains
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#git-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      git log
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-blame" class="md-nav__link">
+    <span class="md-ellipsis">
+      git blame
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      git branch
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-push-force-with-lease" class="md-nav__link">
+    <span class="md-ellipsis">
+      git push --force-with-lease
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      git maintenance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-rerere" class="md-nav__link">
+    <span class="md-ellipsis">
+      git rerere
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-and-bash" class="md-nav__link">
+    <span class="md-ellipsis">
+      git and bash
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-addresetcheckout-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      git add/reset/checkout -p
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-worktrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      git worktrees
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-rebase-autosquash" class="md-nav__link">
+    <span class="md-ellipsis">
+      git rebase --autosquash
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-linguist" class="md-nav__link">
+    <span class="md-ellipsis">
+      github-linguist
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../index.html" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-12-18 00:00:00+00:00" class="md-ellipsis">December 18, 2024</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../category/git.html">Git</a>, 
+                              <a href="../../../category/beyond-the-basics.html">Beyond the Basics</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              8 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+
+
+<h1 id="git-beyond-the-basics">Git - Beyond the Basics</h1>
+<p>How well do you know Git? Many of us use it daily and pick up the basics as we go. After a few years, you might start to think that you know Git pretty well. But there are more things in the Git man pages than are dreamt of in your philosophy...</p>
+<!-- more -->
+
+<p>For instance, if you are not using <code>git maintenance</code> or <code>worktree</code>, you are missing out. This blog post is for those who would like to explore Git beyond the basics.</p>
+<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
+
+<p>Much of the content in this post is straight out of the 2024 FOSDEM talk "So You Think You Know Git?" by the amazing Scott Chacon. Here is that talk and the follow-up "Part 2" from DevWorld 2024. I have cherry-picked the parts that I found most useful from his presentations and mixed them up with some of my own favorite Git features.</p>
+<center>
+<iframe width="380" height="252" src="https://www.youtube.com/embed/aolI_Rz0ZqY?si=w-fTNQIOv5cjEjoc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="380" height="252" src="https://www.youtube.com/embed/Md44rcw13k4?si=aPogguUMXINligKV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
+
+<p>Before we get started, make sure you have the latest version of git installed: <a href="https://git-scm.com/">https://git-scm.com/</a> Some of the things covered in this post are relatively new. If you haven't updated your Git installation for a few years, now is the time.</p>
+<p>Staying true to Scott Chacon's "shotgun buffet" presentation style, here is a bunch of useful Git tips for you, in no particular order. Let's go!</p>
+<h2 id="git-log">git log</h2>
+<p>Let's start by setting up some nice log formatting and default arguments with a <code>git l</code> alias:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git config --global alias.l &quot;log --pretty=format:&#39;%C(#cccc00)%h %Cred%ad %Creset%&lt;(60,trunc)%s%C(auto)%d %C(magenta)%&lt;(15,trunc)%an&#39; --date=format:&#39;%y%m%d&#39;&quot;
+</span></code></pre></div>
+<center>![zlib gitlog color](git-log.png){ width=100% }</center>
+
+<p>With formatting out of the way, let's look at some other nice <code>git log</code> options.</p>
+<p>To figure out not just how, but when a function changed, you can use the <code>-L</code> option with git log:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git log -L :compress2:compress.c
+</span></code></pre></div>
+<p>This will list all commits (and display diffs) for when the <code>compress2</code> function in the <code>compress.c</code> file changed. Git uses a heuristic to figure out where the function starts and ends, and it might not work 100%. Sometimes you will see a few "extra" revs listed in the log, but it's still quite useful.</p>
+<p>Another useful way to search your history is with the <code>-S</code> option. It looks for additions or deletions of a specific string:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git log -S API_KEY      # Show matching commits
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git log -p -S API_KEY   # Show diff for matching commits
+</span></code></pre></div>
+<p>This will show all the commits that add or remove the "API_KEY" string. If you are horrified by what you find after running that command, perhaps consider <a href="https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning">GitHub Secret Scanning</a>?</p>
+<h2 id="git-blame">git blame</h2>
+<p>The <code>git blame</code> command shows you when and who last modified each line of a file. This is useful to understand who to ask about some piece of code or what the context was for a change.</p>
+<p>But there is a problem. Sometimes a line changes in not so interesting ways. Perhaps someone removed a trailing whitespace (you should be using <a href="https://pre-commit.com/">pre-commit</a> to avoid that by the way). Or a line might have been moved around. In these cases, the plain <code>git blame</code> will only show the most recent, i.e. the not so interesting change. The origin of the line is obscured.</p>
+<p>There are a few things you can do to improve the situation. For starters, use: <code>git blame -w -C</code>. This ignores whitespaces (<code>-w</code>) and looks for lines that were moved or copied from other files in the same commit (<code>-C</code>).</p>
+<p>You can additionally provide the <code>-C</code> option two or three times to detect even "deeper" moving of lines by looking further back into history. In my experience though, using more than one <code>-C</code> makes the command frustratingly slow for anything but small repos with a short history.</p>
+<p>Here is the deep-blame alias I use:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git config --global alias.dblame &#39;blame -w -C&#39;
+</span></code></pre></div>
+<p>Another useful blame feature is the ability to ignore specific revisions by adding a <code>.git-blame-ignore-revs</code> file. Without this, major formatting changes will make blame mostly useless since all blame commands will only show the formatting commit. Great if you are adopting <a href="https://docs.astral.sh/ruff/">ruff</a> for your Python code.</p>
+<p>Start using the file in your repository with:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git config --global blame.ignoreRevsFile .git-blame-ignore-revs
+</span></code></pre></div>
+<p>And this is some sample <code>.git-blame-ignore-revs</code> content:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>d01ecec5367d4475d4a8ff08ac74088cc6423ba6 # Global clang-format with new style
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>68af25be0dc7d77e2cb99f3c9cabe1c96cf71149 # Switching from black to ruff
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>63b5fa235c5f4ec01fcb329972d2fa51682e7d75 # Consistent &quot;west const&quot;
+</span></code></pre></div>
+<p>While we are on the subject of <code>git blame</code>, there is also the <code>--color-by-age</code> option that highlights recent changes with an accent color. Useful to see recent changes "at a glance".</p>
+<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
+
+<h2 id="git-branch">git branch</h2>
+<p>The git branch command will list local branches in alphabetical order. That's not helpful, at least if you have many local branches. What you want is to sort them by recent activity. Change the default:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git config --global branch.sort -committerdate
+</span></code></pre></div>
+<p>While we're at it, let's add some color and a bit more context to the branch output. This is my <code>git b</code> alias and the rich output it produces:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git config --global alias.b &quot;branch --format=&#39;%(color:#cccc00)%(objectname:short) %(color:red)%(committerdate:short) %(color:bold white)%(refname:short)&#39;&quot;
+</span></code></pre></div>
+<center>![branch alias](git-branch.png){ width=60% }</center>
+
+<h2 id="git-push-force-with-lease">git push --force-with-lease</h2>
+<p>If you have worked long enough with Git, you will have discovered the tempting foot-gun <code>git push --force</code>. If you have discovered it, you might also have successfully discharged it into your foot and lost some work.</p>
+<p>It usually goes like this: You do your work, commit and push it. Then you realize you forgot to rebase on top of main, so you do that and try to push again. This time, Git will complain since you are rewriting history on the remote. But you think that this is exactly what you wanted to do, so you try again with <code>git push --force</code>. This time, your rebased commits are up and everything is great. Or is it?</p>
+<p>While you were rebasing, your coworker pushed a commit on top of your original change. Since you didn't fetch before rebasing, your force push obliterated their work and it is lost, like tears in the rain. Actually, the change is still locally with your coworker, so you can probably fix this pretty easily. But it's not nice to obliterate commits from other people. So let's try to avoid that.</p>
+<p>Enter <code>git push --force-with-lease</code>. This does what you want but doesn't let you shoot yourself in the foot. It only allows the force push if the remote history is the same as the local history, i.e., it works like a regular force push as long as there are no coworker commits in the way.</p>
+<h2 id="git-maintenance">git maintenance</h2>
+<p>To keep Git performing well, there is some maintenance required. The internal data representation must be pruned and compressed.</p>
+<p>Instead of letting these tasks piggyback on other Git commands (making them take longer), we can enable background repo maintenance:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git maintenance start
+</span></code></pre></div>
+<p>This is one of those "set and forget" type of things. Enable this in your active repos and Git will just be faster. Just do it.</p>
+<h2 id="git-rerere">git rerere</h2>
+<p>Resolving merge conflicts is nobody's favorite pastime. So when you get the exact same merge conflict again, you wish that Git would have learned how it should be resolved and get on with it. If you enable rerere (reuse recorded resolution), Git will do just that:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git config --global rerere.enabled true
+</span></code></pre></div>
+<p>This problem is more common if you have long-lived feature branches or workflows where you do a lot of rebasing and cherry-picking. But since there is almost no cost to enable it, just do it.</p>
+<h2 id="git-and-bash">git and bash</h2>
+<p>If you are using Git from the terminal, you might consider adding a bit of ornamentation to your prompt. This is my favorite and it works well for bash.</p>
+<center>![zlib gitlog color](git-prompt.png){ width=50% }</center>
+
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt --depth=1
+</span></code></pre></div>
+Then and add this to your <code>~/.bashrc</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>if [ -f &quot;$HOME/.bash-git-prompt/gitprompt.sh&quot; ]; then
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    GIT_PROMPT_ONLY_IN_REPO=1
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    GIT_PROMPT_THEME=Single_line_Solarized
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    source &quot;$HOME/.bash-git-prompt/gitprompt.sh&quot;
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>fi
+</span></code></pre></div>
+<h2 id="git-addresetcheckout-p">git add/reset/checkout -p</h2>
+<p>Sometimes (or all the time?) we find ourselves multitasking. While working on one thing, we find some minor unrelated "wart" and fix it. That's great, but it's really not part of the original task. Ideally, it should end up in a different commit.</p>
+<p>If the "bonus" changes are made to different files, we can just stage them separately. But more often than not, the "bonus" and the original task changes are to the same file.</p>
+<p>This is where <code>git add -p</code> comes in handy. You can stage parts of a file and leave other parts unstaged. You can also unstage with <code>git reset -p</code> and even revert changes with <code>git checkout -p</code>.</p>
+<p>Git will step through all changes and ask you what to do with them. The caveat is that when you run the unit tests locally, they will run on both staged and unstaged changes, so you might not notice if your partial add broke something until tests are running in CI.</p>
+<h2 id="git-worktrees">git worktrees</h2>
+<p>If the casual multitasking of <code>git add -p</code> is not enough, you should consider <em>worktrees</em>. This is how you check out several branches side by side in different directories without cloning your repo multiple times. All the blobs and refs are then shared between the two directories. Here is how to check out a new branch in a new-repo-dir directory:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>git worktree add -b new-branch ../new-repo-dir
+</span></code></pre></div>
+<h2 id="git-rebase-autosquash">git rebase --autosquash</h2>
+<p>GitHub's pull request concept (which isn't really a Git concept) is very nice for collaborating in a repository, especially if you want to do code reviews. The squash merge strategy is the way to go in this situation.</p>
+<p>But sometimes I find myself working alone in a Git repo and the pull request workflow is just a lot of overhead. Instead, I tend to prefer a rebase-centered workflow. Create a few commits on a branch as you work, then tidy them up with <code>git rebase --interactive</code> before pushing. This lets you combine, split, or reword commits as appropriate to make them coherent and cohesive.</p>
+<p>Nice! But if you make a change that you know should have been part of an earlier commit, you can save yourself some work in the interactive rebase phase by committing it as a fixup directly.</p>
+<p>Consider this situation with two commits:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>echo &quot;foo&quot; &gt; foo
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>git add foo
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>git commit -m &quot;Adding a foo file&quot;
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>&quot;bar&quot; &gt; bar
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>git add bar
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>git commit -m &quot;Adding a bar file&quot;
+</span></code></pre></div>
+<p>You then proceed to work and realize that what you are doing should be part of the first commit. You could try to remember this and fix it when you do your interactive rebase later. But you don't have to. You can do a fixup and stay in your development flow. Later, you autosquash the fixup commits and do any further interactive rebasing (if there is still something to do).</p>
+<center>![fixup commit](fixup.png){ width=60% }</center>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>echo &quot;fubar&quot; &gt;&gt; foo
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>git add -u
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>git commit --fixup=&lt;commit hash&gt; # 9f5e01c
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>git rebase --autosquash
+</span></code></pre></div>
+<h2 id="github-linguist">github-linguist</h2>
+<p>Maybe the least useful advice in this blog post is also not a git native topic, but a GitHub specific one. But since I know this really trigger some people's OCD, I consider it a public health service. I'm referring to the GitHub language stats for you repo...</p>
+<center>![github-linguist](linguist.png){ width=80% }</center>
+
+<p>Some times, the tool that GitHub uses <code>github-linguist</code> (you can run it locally) need a little help. You can provide hints in a <code>.gitattributes</code> file.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>camera/test-images/*.h   linguist-generated
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>partner-libs/*           linguist-vendored
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>*.h                      linguist-language=C
+</span></code></pre></div>
+<p>This example will prevent generated header's with binary image data from being included. And it will ignore "vendored in" thirdparty libraries. It will also fix the <a href="https://github.com/github-linguist/linguist/blob/main/docs/troubleshooting.md#my-ccobjective-c-h-header-file-is-detected-as-the-wrong-language">common issues miss-classifying C as Objective-C</a></p>
+<p>While you are editing your <code>.gitattributes</code> file, go ahead and add <code>* text=auto</code> to it to make git take care of line ending differences between Linux and Windows so you don't have to hope that all devs setup their <code>core.autocrlf</code> config in the right way.</p>
+<pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024-2025 Anders Sundman
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="mailto:anders@4zm.org" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480v-83.6c0-4 1.5-7.8 4.2-10.8l167.6-182.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8l-88.3-44.2C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="/feed_rss_created.xml" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
