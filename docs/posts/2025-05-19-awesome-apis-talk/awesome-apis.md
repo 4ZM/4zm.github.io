@@ -14,10 +14,14 @@ I've recently delivered two talks on *API design best practices for libraries*. 
 
 <pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
 
+Here is a recording from the ACCU talk 2025 on Apr 3rd.
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/crQQjdOARCQ?si=uaF_j_VZqs9FlFzo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
+
 Here is a recording from the Stockholm C++ Meetup on May 8th. This is a longer version of the talk with a lot of interaction and participation from the audience. 
 
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/myoXUpnvfeA?si=hzjJTk2C6f6n4jr0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </center>
-
-The ACCU presentation from Apr 3rd is a more structured 20min conference talk, but it's not yet available online. I'll update the blog when it's up on YouTube. 
