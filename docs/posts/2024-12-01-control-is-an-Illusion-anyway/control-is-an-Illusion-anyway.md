@@ -92,7 +92,7 @@ Enforcing unconditional and automated formatting before merging is also key. If 
 
 The Rosy Reviews process works well for us but it might not be for everyone. Our reviews latency is lower than in many other organization, but it still too high if you ask our developers. If you are curious about going down the eventual quality consistency route, here are some of the challenges we encountered. Consider if this is something that might need special attention in your organization.
 
-<center>![Clueless Revierer](clueless-reviewer.jpeg){ width=50% }</center>
+![Clueless Revierer](clueless-reviewer.jpeg){ .centered width=50% }
 
 It doesn't work without reliable tests. If you do "lazy" reviews without tests, you're back to yolo land. That's only fun until it breaks.
 

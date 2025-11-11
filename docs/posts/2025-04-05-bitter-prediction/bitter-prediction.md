@@ -23,7 +23,7 @@ For a few days, I had a fantastic time. Then, I didn’t. It wasn’t that the t
 I recognized the feeling from a moment in my youth. Back then, I loved playing the game "UFO: Enemy Unknown." The game involved building a global defense network to ward off an alien invasion. Building bases, researching new technologies, and buying weapons were all part of the strategy mechanics. At the same time, I was beginning to explore how software was built. Using a hex editor and a disassembler, I would pick apart things to see how they worked. This was another kind of game that I thoroughly enjoyed. One day, it hit me: the amount of money I had in the game must somehow be stored in the save files! I could use my hex editor to change it.
 
 
-<center>![xcom](xcom.png){ width=60% }</center>
+![xcom](xcom.png){ .centered width=60% }
 
 Sure enough, my plan worked. I awarded myself a generous donation, and for a few hours, I was thrilled. I could buy all the cool stuff I couldn’t afford before and I had no problem fending off the pesky alien invasion. Aliens were no match for my hex editor.
 

@@ -14,6 +14,4 @@ How low can you go? When it comes to embedded programming, the "full stack" star
 
 <pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
 
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-uZRiTgqQRU?si=0mqLmcUe_uo1zuQb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</center>
+<iframe class="centered" width="560" height="315" src="https://www.youtube.com/embed/-uZRiTgqQRU?si=0mqLmcUe_uo1zuQb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

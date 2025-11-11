@@ -18,11 +18,9 @@ For instance, if you are not using `git maintenance` or `worktree`, you are miss
 
 Much of the content in this post is straight out of the 2024 FOSDEM talk "So You Think You Know Git?" by the amazing Scott Chacon. Here is that talk and the follow-up "Part 2" from DevWorld 2024. I have cherry-picked the parts that I found most useful from his presentations and mixed them up with some of my own favorite Git features.
 
-<center>
-<iframe width="380" height="252" src="https://www.youtube.com/embed/aolI_Rz0ZqY?si=w-fTNQIOv5cjEjoc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<iframe width="380" height="252" src="https://www.youtube.com/embed/Md44rcw13k4?si=aPogguUMXINligKV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</center>
+<iframe class="centered" width="380" height="252" src="https://www.youtube.com/embed/aolI_Rz0ZqY?si=w-fTNQIOv5cjEjoc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</br>
+<iframe class="centered" width="380" height="252" src="https://www.youtube.com/embed/Md44rcw13k4?si=aPogguUMXINligKV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 Before we get started, make sure you have the latest version of git installed: [https://git-scm.com/](https://git-scm.com/) Some of the things covered in this post are relatively new. If you haven't updated your Git installation for a few years, now is the time.
 
@@ -36,7 +34,7 @@ Let's start by setting up some nice log formatting and default arguments with a 
 git config --global alias.l "log --pretty=format:'%C(#cccc00)%h %Cred%ad %Creset%<(60,trunc)%s%C(auto)%d %C(magenta)%<(15,trunc)%an' --date=format:'%y%m%d'"
 ```
 
-<center>![zlib gitlog color](git-log.png){ width=100% }</center>
+![zlib gitlog color](git-log.png){ .centered width=100% }
 
 With formatting out of the way, let's look at some other nice `git log` options.
 
@@ -108,7 +106,7 @@ While we're at it, let's add some color and a bit more context to the branch out
 git config --global alias.b "branch --format='%(color:#cccc00)%(objectname:short) %(color:red)%(committerdate:short) %(color:bold white)%(refname:short)'"
 ```
 
-<center>![branch alias](git-branch.png){ width=60% }</center>
+![branch alias](git-branch.png){ .centered width=60% }
 
 ## git push --force-with-lease
 
@@ -147,7 +145,7 @@ This problem is more common if you have long-lived feature branches or workflows
 
 If you are using Git from the terminal, you might consider adding a bit of ornamentation to your prompt. This is my favorite and it works well for bash.
 
-<center>![zlib gitlog color](git-prompt.png){ width=50% }</center>
+![zlib gitlog color](git-prompt.png){ .centered width=50% }
 
 ```
 git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt --depth=1
@@ -203,7 +201,7 @@ git commit -m "Adding a bar file"
 
 You then proceed to work and realize that what you are doing should be part of the first commit. You could try to remember this and fix it when you do your interactive rebase later. But you don't have to. You can do a fixup and stay in your development flow. Later, you autosquash the fixup commits and do any further interactive rebasing (if there is still something to do).
 
-<center>![fixup commit](fixup.png){ width=60% }</center>
+![fixup commit](fixup.png){ .centered width=60% }
 
 ```
 echo "fubar" >> foo
@@ -219,7 +217,7 @@ git rebase --autosquash
 
 Maybe the least useful advice in this blog post is also not a git native topic, but a GitHub specific one. But since I know this really trigger some people's OCD, I consider it a public health service. I'm referring to the GitHub language stats for you repo...
 
-<center>![github-linguist](linguist.png){ width=80% }</center>
+![github-linguist](linguist.png){ .centered width=80% }
 
 Some times, the tool that GitHub uses `github-linguist` (you can run it locally) need a little help. You can provide hints in a `.gitattributes` file.
 

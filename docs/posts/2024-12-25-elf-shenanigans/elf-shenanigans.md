@@ -18,7 +18,7 @@ As hackers, we some times get a *"what if I just..."* moment. A delightful spark
 
 It turns out, that works like a charm and I have never seen a better looking symbol table!
 
-<center>![console](xmas.gif)</center>
+![console](xmas.gif){ .centered }
 
 The assembler complains about silly section names, but putting control characters in a linker script works just fine.
 

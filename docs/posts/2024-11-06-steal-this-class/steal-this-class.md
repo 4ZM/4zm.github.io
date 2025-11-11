@@ -18,7 +18,7 @@ To make things worse, much of the advice on Stack Overflow and (LLM output train
 
 Since Ctrl-C, Ctrl-V is the de facto standard programming paradigm, and you are going to do it regardless, consider using these boilerplate classes. They are “copy-paste safe.” They have the right defaults, and they are not missing some essential piece that will get you into trouble later.
 
-<center>![Cute cat](take-this.jpg)</center>
+![Cute cat](take-this.jpg){ .centered }
 
 Of course, we have the [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines). These are all the defaults and best practices you *should* be using. But, be honest, you’re not going to read those, are you? These are the templates you have been looking for.
 
@@ -212,6 +212,6 @@ public:
 
 Now, before you get too worked up and start yelling at the screen. I know, there are exceptions to almost all of the recommendations in this post. But they are exceptions. What I have presented are the safe and sane defaults. Your starting point for modern C++.
 
-<center>![Hair of fire](hair-on-fire.jpeg)</center>
+![Hair of fire](hair-on-fire.jpeg){ .centered }
 
 <pre><p style="text-align: center; margin-top: 0px; margin-bottom: 4pt;">•  •  •</p></pre>
